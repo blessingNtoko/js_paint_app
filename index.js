@@ -1,0 +1,11 @@
+let canvas;
+let context;
+let savedImgData;
+let dragging = false;
+let strokeColor = 'black';
+let fillColor = 'black';
+let lineWidth = 2;
+let polySides = 6;
+let currentTool = 'brush';
+let canvasWidth = 600;
+let canvasHeight = 600;
