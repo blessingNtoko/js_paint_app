@@ -56,3 +56,15 @@ function setupCanvas() {
     canvas.addEventListener("mousemove", reactToMouseMove);
     canvas.addEventListener("mouseup", reactToMouseUp);
 }
+
+function reactToMouseDown(evt) {
+    console.log('Mouse Down event', evt)
+}
+
+function reactToMouseMove(evt) {
+    console.log('Mouse Move event', evt)
+}
+
+function reactToMouseUp(evt) {
+    console.log('Mouse Up event', evt)
+}
