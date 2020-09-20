@@ -59,6 +59,16 @@ function setupCanvas() {
 
 function reactToMouseDown(evt) {
     // console.log('Mouse Down event', evt)
+    canvas.style.cursor = "crosshair";
+    mouseLocation = getMousePos(evt.clientX, evt.clientY);
+    saveCanvasImage();
+    mouseDownPos.x = mouseLocation.x;
+    mouseDownPos.y = mouseLocation.y;
+    dragging = true;
+
+    // T
+
+    
 }
 
 function reactToMouseMove(evt) {
