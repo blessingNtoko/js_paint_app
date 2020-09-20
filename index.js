@@ -22,28 +22,28 @@ class ShapeBoundingBox {
 class MouseDownPos {
     constructor(x, y) {
         this.x = x;
-        this.y= y;
+        this.y = y;
     }
 }
 
 class Location {
     constructor(x, y) {
         this.x = x;
-        this.y= y; 
+        this.y = y;
     }
 }
 
 class PolyPoint {
     constructor(x, y) {
         this.x = x;
-        this.y= y; 
+        this.y = y;
     }
 }
 
-let shapeBoundingBox = new ShapeBoundingBox(0,0,0,0);
-let mouseDownPos = new MouseDownPos(0,0);
-let mouseLocation = new Location(0,0);
-let polyPoint = new PolyPoint(0,0);
+let shapeBoundingBox = new ShapeBoundingBox(0, 0, 0, 0);
+let mouseDownPos = new MouseDownPos(0, 0);
+let mouseLocation = new Location(0, 0);
+let polyPoint = new PolyPoint(0, 0);
 
 document.addEventListener("DOMContentLoaded", setupCanvas);
 
@@ -67,4 +67,16 @@ function reactToMouseMove(evt) {
 
 function reactToMouseUp(evt) {
     console.log('Mouse Up event', evt)
+}
+
+function openImage() {
+    console.log('Opening Image');
+}
+
+function saveImage() {
+    console.log('Saving Image');
+}
+
+function changeTool(tool) {
+    console.log(`Selected tool - ${tool}`);
 }
