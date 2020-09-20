@@ -66,27 +66,44 @@ function reactToMouseDown(evt) {
     mouseDownPos.y = mouseLocation.y;
     dragging = true;
 
-    // T
+    // TODO: handle brush
 
     
 }
 
 function reactToMouseMove(evt) {
     // console.log('Mouse Move event', evt)
-    // mouseLocation = getMousePos(evt.clientX, evt.clientY);
-    // console.log(`Mouse Location -> ${mouseLocation.x}, ${mouseLocation.y}`);
+    canvas.style.cursor = "crosshair";
+    mouseLocation = getMousePos(evt.clientX, evt.clientY);
+
+    // TODO: handle brush
+
 }
 
 function reactToMouseUp(evt) {
     // console.log('Mouse Up event', evt)
+    canvas.style.cursor = "default";
+    mouseLocation = getMousePos(evt.clientX, evt.clientY);
+    redrawCanvasImg();
+    updateRubberBandOnMove(mouseLocation);
+    dragging = false;
+    usingBrush = false;
+
 }
 
 function openImage() {
-    console.log('Opening Image');
+    let img = new Image();
+    img.onload = () => {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(img, 0, 0);
+    }
+    img.src = 'image.png';
 }
 
 function saveImage() {
-    console.log('Saving Image');
+    let imgFile = document.getElementById('imgFile');
+    imgFile.setAttribute('download', 'image.png');
+    imgFile.setAttribute('href', canvas.toDataURL());
 }
 
 function changeTool(tool) {
