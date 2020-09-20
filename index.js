@@ -58,15 +58,17 @@ function setupCanvas() {
 }
 
 function reactToMouseDown(evt) {
-    console.log('Mouse Down event', evt)
+    // console.log('Mouse Down event', evt)
 }
 
 function reactToMouseMove(evt) {
-    console.log('Mouse Move event', evt)
+    // console.log('Mouse Move event', evt)
+    // mouseLocation = getMousePos(evt.clientX, evt.clientY);
+    // console.log(`Mouse Location -> ${mouseLocation.x}, ${mouseLocation.y}`);
 }
 
 function reactToMouseUp(evt) {
-    console.log('Mouse Up event', evt)
+    // console.log('Mouse Up event', evt)
 }
 
 function openImage() {
@@ -79,4 +81,69 @@ function saveImage() {
 
 function changeTool(tool) {
     console.log(`Selected tool - ${tool}`);
+
+    document.getElementById('open').className = "";
+    document.getElementById('save').className = "";
+    document.getElementById('brush').className = "";
+    document.getElementById('line').className = "";
+    document.getElementById('rectangle').className = "";
+    document.getElementById('circle').className = "";
+    document.getElementById('ellipse').className = "";
+    document.getElementById('polygon').className = "";
+
+    document.getElementById(tool).className = 'selected';
+
+    currentTool = tool;
+    console.log(`Current Tool -> ${currentTool}`);
+}
+
+function getMousePos(x, y) {
+    let canvasSizeData = canvas.getBoundingClientRect();
+    return {
+        x: (x - canvasSizeData.left) * (canvas.width / canvasSizeData.width),
+        y: (y - canvasSizeData.top) * (canvas.height / canvasSizeData.height)
+    };
+}
+
+function saveCanvasImage() {
+    savedImgData = context.getImageData(0, 0, canvas.width, canvas.height);
+}
+
+function redrawCanvasImg() {
+    context.putImageData(savedImgData);
+}
+
+function updateRubberBandSizeData(loc) {
+    shapeBoundingBox.width = Math.abs(loc.x - mouseDownPos.x);
+    shapeBoundingBox.height = Math.abs(loc.y - mouseDownPos.y);
+
+    if (loc.x > mouseDownPos.x) {
+        shapeBoundingBox.left = mouseDownPos.x;
+    } else {
+        shapeBoundingBox.left = loc.x;
+    }
+
+    if (loc.y > mouseDownPos.y) {
+        shapeBoundingBox.top = mouseDownPos.y;
+    } else {
+        shapeBoundingBox.top = loc.y;
+    }
+}
+
+function getAngleUsingXAndY(mouseLocX, mouseLocY) {
+    let adjacent = mouseDownPos.x - mouseLocX;
+    let opposite = mouseDownPos.y - mouseLocY;
+    return radiansToDegrees(Math.atan2(opposite, adjacent));
+}
+
+function radiansToDegrees(rad) {
+    if (rad < 0) {
+        return (360.0 + (rad * (180 / Math.PI))).toFixed(2);
+    } else {
+        return (rad * (180 / Math.PI)).toFixed(2);
+    }
+}
+
+function degreesToRadians(deg) {
+    return deg * (Math.PI / 180);
 }
