@@ -83,7 +83,7 @@ function reactToMouseMove(evt) {
     canvas.style.cursor = "crosshair";
     mouseLocation = getMousePos(evt.clientX, evt.clientY);
 
-    if (curentTool === "brush" && dragging && usingBrush) {
+    if (currentTool === "brush" && dragging && usingBrush) {
         if (mouseLocation.x > 0 && mouseLocation.x < canvasWidth && mouseLocation.y > 0 && mouseLocation.y < canvasHeight) {
             addBrushPoint(mouseLocation.x, mouseLocation.y);
         }
