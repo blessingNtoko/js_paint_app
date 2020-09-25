@@ -218,6 +218,9 @@ function updateRubberBandOnMove(location) {
 function drawRubberBandShape(mouseLocation) {
     context.strokeStyle = strokeColor;
     context.fillStyle = fillColor;
+
+    
+
     context.strokeRect(shapeBoundingBox.left, shapeBoundingBox.top, shapeBoundingBox.width, shapeBoundingBox.height);
 }
 
@@ -225,4 +228,20 @@ function addBrushPoint(x, y, mouseDown) {
     brushXPoints.push(x);
     brushYPoints.push(y);
     brushDownPos.push(mouseDown);
+}
+
+function drawBrush() {
+    for (i = 1; i < brushXPoints.length; i++) {
+        context.beginPath();
+
+        if (brushDownPos[i]) {
+            context.moveTo(brushXPoints[i - 1], brushYPoints[i - 1]);
+        } else {
+            context.moveTo(brushXPoints[i] - 1, brushYPoints[i] - 1);
+        }
+
+        context.lineTo(brushXPoints[i], brushYPoints[i]);
+        context.closePath();
+        context.stroke();
+    }
 }
