@@ -71,8 +71,10 @@ function reactToMouseDown(evt) {
     mouseDownPos.y = mouseLocation.y;
     dragging = true;
 
-    // TODO: handle brush
-
+    if (currentTool === "brush") {
+        usingBrush = true;
+        addBrushPoint(mouseLocation.x, mouseLocation.y);
+    }
     
 }
 
@@ -81,12 +83,19 @@ function reactToMouseMove(evt) {
     canvas.style.cursor = "crosshair";
     mouseLocation = getMousePos(evt.clientX, evt.clientY);
 
-    if (dragging) {
-        redrawCanvasImg();
-        updateRubberBandOnMove(mouseLocation);
-    }
+    if (curentTool === "brush" && dragging && usingBrush) {
+        if (mouseLocation.x > 0 && mouseLocation.x < canvasWidth && mouseLocation.y > 0 && mouseLocation.y < canvasHeight) {
+            addBrushPoint(mouseLocation.x, mouseLocation.y);
+        }
 
-    // TODO: handle brush
+        redrawCanvasImg();
+        drawBrush();
+    } else {
+        if (dragging) {
+            redrawCanvasImg();
+            updateRubberBandOnMove(mouseLocation);
+        }
+    }
 
 }
 
