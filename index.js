@@ -137,7 +137,7 @@ function saveCanvasImage() {
 }
 
 function redrawCanvasImg() {
-    context.putImageData(savedImgData);
+    context.putImageData(savedImgData, 0, 0);
 }
 
 function updateRubberBandSizeData(loc) {
@@ -173,4 +173,15 @@ function radiansToDegrees(rad) {
 
 function degreesToRadians(deg) {
     return deg * (Math.PI / 180);
+}
+
+function updateRubberBandOnMove(location) {
+    updateRubberBandSizeData(location);
+    drawRubberBandShape(location);
+}
+
+function drawRubberBandShape(mouseLocation) {
+    context.strokeStyle = strokeColor;
+    context.fillStyle = fillColor;
+    context.strokeRect(shapeBoundingBox.left, shapeBoundingBox.top, shapeBoundingBox.width, shapeBoundingBox.height);
 }
