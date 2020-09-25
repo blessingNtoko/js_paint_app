@@ -76,6 +76,11 @@ function reactToMouseMove(evt) {
     canvas.style.cursor = "crosshair";
     mouseLocation = getMousePos(evt.clientX, evt.clientY);
 
+    if (dragging) {
+        redrawCanvasImg();
+        updateRubberBandOnMove(mouseLocation);
+    }
+
     // TODO: handle brush
 
 }
