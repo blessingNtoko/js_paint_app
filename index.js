@@ -10,6 +10,11 @@ let currentTool = 'brush';
 let canvasWidth = 600;
 let canvasHeight = 600;
 
+let usingBrush = false;
+let brushXPoints = new Array();
+let brushYPoints = new Array();
+let brushDownPos = new Array();
+
 class ShapeBoundingBox {
     constructor(left, top, width, height) {
         this.left = left;
@@ -176,6 +181,31 @@ function radiansToDegrees(rad) {
     }
 }
 
+function getPolyPoints() {
+    let angle = degreesToRadians(getAngleUsingXAndY(mouseLocation.x, mouseLocation.y));
+    let radiusX = shapeBoundingBox.width;
+    let radiusY = shapeBoundingBox.height;
+    let polyPoints = [];
+
+    for (i = 0; i < polySides; i++) {
+       polyPoints.push(new PolyPoint(mouseLocation.x + radiusX * Math.sin(angle), mouseLocation.y - radiusY * Math.cos(angle)));
+       angle += 2 * Math.PI / polySides;
+    }
+    return polyPoints;
+}
+
+function getPoly() {
+    let polyPoints = getPolyPoints();
+    context.beginPath();
+    context.moveTo(polyPoints[0].x, polyPoints[0].y);
+
+    for (i = 1; i < polySides; i++) {
+        context.lineTo(polyPoints[i].x, polyPoints[i].y);
+    }
+
+    context.closePath();
+}
+
 function degreesToRadians(deg) {
     return deg * (Math.PI / 180);
 }
@@ -189,4 +219,10 @@ function drawRubberBandShape(mouseLocation) {
     context.strokeStyle = strokeColor;
     context.fillStyle = fillColor;
     context.strokeRect(shapeBoundingBox.left, shapeBoundingBox.top, shapeBoundingBox.width, shapeBoundingBox.height);
+}
+
+function addBrushPoint(x, y, mouseDown) {
+    brushXPoints.push(x);
+    brushYPoints.push(y);
+    brushDownPos.push(mouseDown);
 }
